@@ -1,0 +1,3 @@
+<launch>
+	<node ns="$(env HOSTNAME)_bot" pkg="pioneer_test" type="run-pioneer-robot" name="runscript" cwd="node" output="screen"/>
+</launch>

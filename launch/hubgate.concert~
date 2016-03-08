@@ -1,0 +1,8 @@
+<concert>
+    <launch title="hub:11311" package="rocon_hub" name="hub.launch" port="11311">
+        <arg name="hub_name" value="Pioneer Hub"/>
+    </launch>
+    <launch title="gate:11312" package="pioneer_rocon_test" name="pioneer_gateway.launch" port="11311">
+        <arg name="gateway_name" value="Hub Gateway"/>
+    </launch>
+</concert>

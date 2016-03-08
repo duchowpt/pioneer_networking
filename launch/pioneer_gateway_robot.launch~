@@ -1,0 +1,29 @@
+<!--This will launch the same gateway as pioneer_gateway.launch,
+	and also will run run-pioneer-robot, from pioneer_test, in a
+	namespace named after this computer-->
+<launch>
+	<!--the args-->
+  <arg name="gateway_name" default="$(env HOSTNAME)_gateway"/>
+  <arg name="gateway_watch_loop_period" default="5"/>
+  <arg name="gateway_hub_uri" default=""               doc="if you need a non-zeroconf direct connection, e.g. http://192.168.1.1:6380"/>
+  <arg name="gateway_hub_whitelist" default="[]"       doc="list of hub names, ips or regex patterns"/>
+  <arg name="gateway_network_interface" default="$(optenv GATEWAY_NETWORK_INTERFACE)"/>  <!-- If you have multiple network interfaces and want to lock it on one (e.g. 'eth0') -->
+  <arg name="gateway_disable_uuids" default="true"/> 
+  <arg name="gateway_firewall" default="false"/>
+  <arg name="gateway_disable_zeroconf" default="false" doc="do not find the hub with zeroconf, make sure you set gateway_hub_uri instead."/>
+
+    <include file="$(find pioneer_rocon_test)/launch/pioneer_gateway.launch" >
+		<!--pass all of the args through to the included launcher-->
+		<arg name="gateway_name" value="$(arg gateway_name)"/>
+        <arg name="gateway_watch_loop_period" value="$(arg gateway_watch_loop_period)"/>
+        <arg name="gateway_network_interface" value="$(arg gateway_network_interface)"/>
+        <arg name="gateway_firewall" value="$(arg gateway_firewall)"/>
+        <arg name="gateway_disable_uuids" value="$(arg gateway_disable_uuids)"/>
+        <arg name="gateway_hub_uri" value="$(arg gateway_hub_uri)"/>
+        <arg name="gateway_disable_zeroconf" value="$(arg gateway_disable_zeroconf)"/>
+		<arg name="gateway_hub_whitelist" value="$(arg gateway_hub_whitelist)"/>
+	</include>
+	
+	
+	<node ns="$(env HOSTNAME)_bot" pkg="pioneer_test" type="run-pioneer-robot" name="runscript" cwd="node" output="screen"/>
+</launch>

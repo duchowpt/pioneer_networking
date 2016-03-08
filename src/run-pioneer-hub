@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export HOSTNAME
+
+echo -e "\nStarting hub and gateway in new terminals.\nIgnore warnings in this terminal.\n"
+sleep 1s
+
+rocon_launch pioneer_rocon_test hubgate.concert
+
